@@ -2,3 +2,7 @@
     grid-area: n;
     background-color: chartreuse;
   }
+
+  .nav a{
+    color: red;
+  }
