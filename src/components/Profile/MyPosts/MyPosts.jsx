@@ -2,17 +2,30 @@ import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
-const MyPosts = () => {
+const MyPosts = (props) => {
+
+    let posts = [
+        { id: 1, message: 'Hi, how are you?', likesCount: 10 },
+        { id: 2, message: 'It\'s my first message', likesCount: 15 },
+        { id: 2, message: 'Dada', likesCount: 18 },
+        { id: 2, message: 'Yo yo!', likesCount: 14 }
+    ]
+
+    let postElement = posts.map(p => <Post message={p.message} likesCount={p.likesCount} />)
+
     return (
-        <div>
-            My posts
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
             <div>
-               <textarea></textarea>
-               <button>Add post</button>
+                <div>
+                    <textarea></textarea>
+                </div>
+                <div>
+                    <button>Add post</button>
+                </div>
             </div>
             <div className={s.posts}>
-                <Post message = 'Hi, how are you?' count='15'/>
-                <Post message="It's my first message" count="10"/>
+                {postElement}
             </div>
         </div>
     )
