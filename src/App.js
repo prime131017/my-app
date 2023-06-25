@@ -7,6 +7,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { sendMessage, updateNewMessage } from './redux/state';
 
 const App = (props) => {
 
@@ -17,8 +18,13 @@ const App = (props) => {
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/profile' element={<Profile data={props.appState.profilePage}/>} />
-            <Route path='/dialogs' element={<Dialogs data={props.appState.dialogsPage} />} />
+            <Route path='/profile' element={<Profile profilePage={props.appState.profilePage}
+              addPost={props.addPost}
+              updateNewPost={props.updateNewPost} />} />
+            <Route path='/dialogs' element={<Dialogs 
+              data={props.appState.dialogsPage}
+              sendMessage={sendMessage}
+              updateNewMessage={updateNewMessage} />} />
             <Route path='/news' element={<News />} />
             <Route path='/music' element={<Music />} />
             <Route path='/settings' element={<Settings />} />
