@@ -1,28 +1,19 @@
-import state, { subscribe } from './redux/state';
-
-
-
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+import store  from './redux/state';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { addPost, sendMessage, updateNewMessage, updateNewPost } from './redux/state';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = (state) => {
   root.render(
     <React.StrictMode>
-      <App appState={state}
-        addPost={addPost}
-        updateNewPost={updateNewPost}
-        sendMessage={sendMessage}
-        updateNewMessage={updateNewMessage}/>
+      <App appState={store.getState()}
+        addPost={store.addPost.bind(store)}
+        updateNewPost={store.updateNewPost.bind(store)}
+        sendMessage={store.sendMessage.bind(store)}
+        updateNewMessage={store.updateNewMessage.bind(store)}/>
     </React.StrictMode>
   );
 }
@@ -31,5 +22,5 @@ let rerenderEntireTree = (state) => {
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-rerenderEntireTree(state); 
-subscribe(rerenderEntireTree);
+rerenderEntireTree(store.getState()); 
+store.subscribe(rerenderEntireTree);
