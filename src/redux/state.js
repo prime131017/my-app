@@ -28,46 +28,42 @@ let store = {
 
     }
   },
-  getState(){
-    return this._state;
-  },
   _rerenderEntireTree() {
     console.log('Change state');
   },
 
-  addPost() {
-    let newPost = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._rerenderEntireTree(this._state);
+  getState() {
+    return this._state;
   },
-
-  updateNewPost(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._rerenderEntireTree(this._state);
-  },
-
-  sendMessage() {
-    let newMessage = {
-      id: 6,
-      message: this._state.dialogsPage.newMessageText
-    }
-    this._state.dialogsPage.messages.push(newMessage);
-    this._state.dialogsPage.newMessageText = '';
-    this._rerenderEntireTree(this._state);
-  },
-
-  updateNewMessage(newText) {
-    this._state.dialogsPage.newMessageText = newText;
-    this._rerenderEntireTree(this._state);
-  },
-
   subscribe(observer) {
     this._rerenderEntireTree = observer;
+  },
+
+  dispatch(action) {
+    if (action.type === 'ADD-POST') {
+      let newPost = {
+        id: 5,
+        message: this._state.profilePage.newPostText,
+        likesCount: 0
+      };
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = '';
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === 'UPDATE-NEW-DIALOG') {
+      this._state.dialogsPage.newMessageText = action.newText;
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === 'SEND-MESSAGE') {
+      let newMessage = {
+        id: 6,
+        message: this._state.dialogsPage.newMessageText
+      }
+      this._state.dialogsPage.messages.push(newMessage);
+      this._state.dialogsPage.newMessageText = '';
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === 'UPDATE-NEW-POST') {
+      this._state.profilePage.newPostText = action.newText;
+      this._rerenderEntireTree(this._state);
+    }
   }
 }
 
