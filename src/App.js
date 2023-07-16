@@ -6,32 +6,29 @@ import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { sendMessage, updateNewMessage } from './redux/state';
+import { Route, Routes } from "react-router-dom"
 
 const App = (props) => {
 
   return (
-    <BrowserRouter>
-      <div className='app-wrapper'>
-        <Header />
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/profile' element={<Profile profilePage={props.appState.profilePage}
-              dispatch={props.dispatch} />} />
-            <Route path='/dialogs' element={<Dialogs 
-              data={props.appState.dialogsPage}
-              dispatch={props.dispatch} />} />
-            <Route path='/news' element={<News />} />
-            <Route path='/music' element={<Music />} />
-            <Route path='/settings' element={<Settings />} />
+    <div className='app-wrapper'>
+      <Header />
+      <Navbar />
+      <div className='app-wrapper-content'>
+        <Routes>
+          <Route path='/dialogs'  element={<Dialogs store={props.store} />} />
 
-            {/* <Route path='/profile' render={ () =><Profile />} /> */}
-          </Routes>
-        </div>
+          <Route path='/profile' element={<Profile profilePage={props.appState.profilePage}
+            dispatch={props.dispatch} />} />
+
+          <Route path='/news' element={<News />} />
+          <Route path='/music' element={<Music />} />
+          <Route path='/settings' element={<Settings />} />
+
+          {/* <Route path='/profile' render={ () =><Profile />} /> */}
+        </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   )
 }
 
