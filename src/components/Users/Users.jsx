@@ -1,56 +1,27 @@
 import React from "react";
 import styles from './users.module.css';
+import axios from "axios";
+import userPhoto from "../../assets/image/samuray.jpeg";
 
 let Users = (props) => {
 
-    if (props.users.length === 0) {
-        props.setUsers(
-            [
-                {
-                    id: 1,
-                    photoUrl: 'https://th.bing.com/th/id/R.21baf95e143d909254c94997e7f551f0?rik=CQEW3J%2bj23UPYw&riu=http%3a%2f%2faroundpet.ru%2fwp-content%2fuploads%2fpochemu-koshki-smotryat-glaza-cheloveku.jpg&ehk=6662OUe%2fbbc3KxH1ZK3R2FtwhxvTsZl0zLOn3mSjNr4%3d&risl=&pid=ImgRaw&r=0',
-                    followed: false,
-                    fullName: 'Anatolii',
-                    status: 'I am BOSS',
-                    location: {
-                        city: 'Mykolaiv',
-                        country: 'Ukraine'
-                    }
-                },
-                {
-                    id: 2,
-                    photoUrl: 'https://th.bing.com/th/id/R.21baf95e143d909254c94997e7f551f0?rik=CQEW3J%2bj23UPYw&riu=http%3a%2f%2faroundpet.ru%2fwp-content%2fuploads%2fpochemu-koshki-smotryat-glaza-cheloveku.jpg&ehk=6662OUe%2fbbc3KxH1ZK3R2FtwhxvTsZl0zLOn3mSjNr4%3d&risl=&pid=ImgRaw&r=0',
-                    followed: true,
-                    fullName: 'Rymma',
-                    status: 'I am BOSS-2',
-                    location: {
-                        city: 'Kyshyneu',
-                        country: 'Moldova'
-                    }
-                },
-                {
-                    id: 3,
-                    photoUrl: 'https://th.bing.com/th/id/R.21baf95e143d909254c94997e7f551f0?rik=CQEW3J%2bj23UPYw&riu=http%3a%2f%2faroundpet.ru%2fwp-content%2fuploads%2fpochemu-koshki-smotryat-glaza-cheloveku.jpg&ehk=6662OUe%2fbbc3KxH1ZK3R2FtwhxvTsZl0zLOn3mSjNr4%3d&risl=&pid=ImgRaw&r=0',
-                    followed: false,
-                    fullName: 'Ksenya',
-                    status: 'I am BOSS-3',
-                    location: {
-                        city: 'Krotoszyn',
-                        country: 'Poland'
-                    }
-                }
-            ]
-        )
+    let getUsers = () => {
+
+        if (props.users.length === 0) {
+
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                props.setUsers(response.data.items)
+            });
+        }
     }
 
-
-
     return <div>
+        <button onClick={getUsers}>Get Users</button>
         {
-            props.users.map(u => <div key={u.id}>
+            props.users.map(u => <div key={u.id} className={styles.wrapper}>
                 <span>
                     <div>
-                        <img src={u.photoUrl} className={styles.userPhoto} />
+                        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto} />
                     </div>
                     <dir>
                         {u.followed
@@ -61,12 +32,12 @@ let Users = (props) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
                     </span>
                 </span>
             </div>)
