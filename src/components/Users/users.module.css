@@ -5,3 +5,12 @@
 .wrapper{
     padding-bottom: 40px;
 }
+
+.selectedPage{
+    font-weight: bold;
+}
+
+.wrapperPage{
+    cursor: pointer;
+
+}
