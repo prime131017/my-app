@@ -11,11 +11,12 @@ import ProfileContainerWrap from './components/Profile/ProfileInfo/ProfileContai
 import ProfileContainer from './components/Profile/ProfileInfo/ProfileContainer';
 import Profile from './components/Profile/Profile';
 import ProfileInfo from './components/Profile/ProfileInfo/ProfileInfo';
+import HeaderContainer from './components/Header/HeaderContainer';
 const App = (props) => {
 
   return (
     <div className='app-wrapper'>
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
