@@ -98,7 +98,7 @@ export const follow = (userId) => {
 
         usersAPI.follow(userId)
             .then(response => {
-                if (response.data.resultCode == 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(followSuccess(userId))
                 }
                 dispatch(toggleFollowingProgress(false, userId));
@@ -113,15 +113,12 @@ export const unfollow = (userId) => {
 
         usersAPI.unfollow(userId)
             .then(response => {
-                if (response.data.resultCode == 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId))
                 }
                 dispatch(toggleFollowingProgress(false, userId));
             });
     }
 }  //thunk creator!!!
-
-
-
 
 export default usersReducer;

@@ -1,28 +1,34 @@
-import React from "react";
+import { compose } from "redux";
 import { sendMessageCreator, updateNewMessageBodyCreator } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 
-
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.auth.isAuth,
         dialogsPage: state.dialogsPage,
-        newMessagBody:state.dialogsPage.newMessagBody
+        newMessageBody: state.dialogsPage.newMessageBody
     }
 };
 
 let mapDIspatchToProps = (dispatch) => {
     return {
-        updateNewMessageBody:(body)=>{
+        updateNewMessageBody: (body) => {
             dispatch(updateNewMessageBodyCreator(body));
         },
-        sendMessage:()=>{
+        sendMessage: () => {
             dispatch(sendMessageCreator());
         }
     }
 };
 
 
-const DialogsContainer = connect(mapStateToProps, mapDIspatchToProps)(Dialogs);
 
-export default DialogsContainer;
+
+
+
+export default compose (
+    connect(mapStateToProps, mapDIspatchToProps),
+    //withAuthRedirect
+
+) (Dialogs);
